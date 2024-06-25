@@ -9,11 +9,14 @@ import Foundation
 import SwiftUI
 import Network
 import Models
+import Env
+
 struct KTagSearchAndAddView : View, Sendable {
     @State private var searchText = ""
     @ObservedObject var viewModel: KTagWithRelationListViewModel
     @State var selectedTag:[KTag] = []
     @State var client: Client?
+    @Environment(StreamWatcher.self) private var watcher
     // 検索結果のフィルタリング
     @State var searchResults: [KTag] = []
     func fetchSearchResults() async {
@@ -96,6 +99,8 @@ struct KTagWithRelationListView: View {
     @State var viewModel: KTagWithRelationListViewModel
     var client: Client?
     @State private var showAlert = false
+    
+    @Environment(StreamWatcher.self) private var watcher
    
     // stream から削除信号が来たらタグを消す
     var body: some View {
@@ -121,6 +126,10 @@ struct KTagWithRelationListView: View {
                             }),
                             secondaryButton: .cancel()
                         )
+                    }.onChange(of: watcher.latestEvent?.id) {
+                        if let latestEvent = watcher.latestEvent {
+                          viewModel.handleEvent(event: latestEvent)
+                        }
                     }
             }
             let array2 = Array(viewModel.kTagRelations.addingKTagRelationRequestedList)

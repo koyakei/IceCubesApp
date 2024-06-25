@@ -49,7 +49,7 @@ public class KTagWithRelationListViewModel : ObservableObject{
     
     // 追加したいリクエストを出しているタグだったら、　追加リクエストを消して　現在の候補からも削除する
     func deleteKTagRelationRequest(kTagRelation: AddingKTagRelationRequested) async {
-        guard let res = try? await client?.post(endpoint: KTagAddRelationRequests.delete(id: kTagRelation.kTagAddRelationRequest.id)) as?  KTagAddRelationRequest else{ return  }
+        guard let res = try? await client?.post(endpoint: KTagAddRelationRequests.delete(id: kTagRelation.addRequestId)) as?  KTagAddRelationRequest else{ return  }
         kTagRelations.remove(kTagRelation)
     }
     
@@ -64,5 +64,11 @@ public class KTagWithRelationListViewModel : ObservableObject{
         guard let res = try? await client?.post(endpoint: KTagDeleteRelationRequests.delete(id: kTagRelation.kTagDeleteRelationRequest.id)) as? AddedKTagRelation else{ return }
         kTagRelations.remove(kTagRelation)
         kTagRelations.update(AddedKTagRelation.init(kTagRelation))
+    }
+    
+    func handleEvent(event: any StreamEvent) {
+//      if let event = event as? StreamEventConversation {
+//        updateConversations(conversation: event.conversation)
+//      }
     }
 }

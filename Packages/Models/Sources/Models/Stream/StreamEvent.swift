@@ -20,6 +20,27 @@ public struct StreamEventUpdate: StreamEvent {
   }
 }
 
+public struct StreamEventKTagAddRelationRequestCreate: StreamEvent {
+  public let date = Date()
+  public var id: String { kTagAddRelationRequest.id  }
+  public let kTagAddRelationRequest:KTagAddRelationRequest
+  public init(kTagAddRelationRequest: KTagAddRelationRequest) {
+    self.kTagAddRelationRequest = kTagAddRelationRequest
+  }
+}
+
+public struct StreamEventKTagDeleteRelationRequestCreate: StreamEvent {
+  public let date = Date()
+  public var id: String { kTagDeleteRelationRequest.id  }
+  public let kTagDeleteRelationRequest:KTagDeleteRelationRequest
+  public init(kTagDeleteRelationRequest: KTagDeleteRelationRequest) {
+    self.kTagDeleteRelationRequest = kTagDeleteRelationRequest
+  }
+}
+
+
+
+
 public struct StreamEventStatusUpdate: StreamEvent {
   public let date = Date()
   public var id: String { status.id + (status.editedAt?.asDate.description ?? "") }

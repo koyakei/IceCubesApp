@@ -12,14 +12,14 @@ public struct AddingKTagRelationRequested :NotCreatedYetKTagRelationForSearchAnd
     public let accountId: String
     public let kTagId: String
     public let kTag: KTag
-    public let kTagAddRelationRequest :KTagAddRelationRequest
+    public let addRequestId: String
     public let isOwned: Bool
-    init(kTagId: String,statusId:String ,accountId: String,kTag:KTag, kTagAddRelationRequest :KTagAddRelationRequest, isOwned: Bool) {
+    init(kTagId: String,statusId:String ,accountId: String,kTag:KTag, isOwned: Bool,addRequestId: String) {
         self.statusId = statusId
         self.accountId = accountId
         self.kTag = kTag
-        self.kTagAddRelationRequest = kTagAddRelationRequest
         self.kTagId = kTagId
         self.isOwned = isOwned
+        self.addRequestId = addRequestId
     }
 }

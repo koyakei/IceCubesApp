@@ -1660,6 +1660,7 @@
 				MARKETING_VERSION = 1.10.43;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID_PREFIX).IceCubesApp.IceCubesActionExtension";
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.koyakei.IceCubesApp.IceCubesActionExtension;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = com.koyakei.IceCubesApp.IceCubesActionExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
