@@ -43259,6 +43259,7 @@
       }
     },
     "settings.app.support" : {
+      "extractionState" : "stale",
       "localizations" : {
         "be" : {
           "stringUnit" : {

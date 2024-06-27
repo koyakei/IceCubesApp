@@ -11,7 +11,7 @@ extension IceCubesApp {
         .applyTheme(theme)
         .onAppear {
           setNewClientsInEnv(client: appAccountsManager.currentClient)
-          setupRevenueCat()
+      
           refreshPushSubs()
         }
         .environment(appAccountsManager)

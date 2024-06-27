@@ -50,5 +50,6 @@ protocol KTagProtocol{
 
 public struct KTagData: KTagProtocol,Encodable, Sendable {
   public let name: String
-
+    public let id: String
+    public let account: Account
 }

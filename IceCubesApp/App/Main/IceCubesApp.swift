@@ -6,7 +6,6 @@ import Env
 import KeychainSwift
 import MediaUI
 import Network
-import RevenueCat
 import StatusKit
 import SwiftUI
 import Timeline
@@ -65,15 +64,6 @@ struct IceCubesApp: App {
     }
   }
 
-  func setupRevenueCat() {
-    Purchases.logLevel = .error
-    Purchases.configure(withAPIKey: "appl_JXmiRckOzXXTsHKitQiicXCvMQi")
-    Purchases.shared.getCustomerInfo { info, _ in
-      if info?.entitlements["Supporter"]?.isActive == true {
-        isSupporter = true
-      }
-    }
-  }
 
   func refreshPushSubs() {
     PushNotificationsService.shared.requestPushNotifications()
