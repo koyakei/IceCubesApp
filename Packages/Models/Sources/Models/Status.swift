@@ -82,7 +82,7 @@ public class Status: AnyStatus, Codable, Identifiable, Equatable, Hashable {
   }
 
     public init(id: String, content: HTMLString, account: Account, createdAt: ServerDate, editedAt: ServerDate?, reblog: ReblogStatus?, mediaAttachments: [MediaAttachment], mentions: [Mention], repliesCount: Int, reblogsCount: Int, favouritesCount: Int, card: Card?, favourited: Bool?, reblogged: Bool?, pinned: Bool?, bookmarked: Bool?, emojis: [Emoji], url: String?, application: Application?, inReplyToId: String?, inReplyToAccountId: String?, visibility: Visibility, poll: Poll?, spoilerText: HTMLString, filtered: [Filtered]?, sensitive: Bool, language: String?
-//                , addedKTagRelations: KTagRelations = KTagRelations.init(addedKTagRelationList: Set(), addingKTagRelationRequestedList: Set(), deletingKTagRelationRequestedList: Set())
+                , addedKTagRelations: KTagRelations?
     ) {
     self.id = id
     self.content = content
@@ -111,7 +111,7 @@ public class Status: AnyStatus, Codable, Identifiable, Equatable, Hashable {
     self.filtered = filtered
     self.sensitive = sensitive
     self.language = language
-//        self.kTagRelations = addedKTagRelations
+        self.kTagRelations = addedKTagRelations
   }
 
   public static func placeholder(forSettings: Bool = false, language: String? = nil) -> Status {
@@ -143,8 +143,8 @@ public class Status: AnyStatus, Codable, Identifiable, Equatable, Hashable {
           spoilerText: .init(stringValue: ""),
           filtered: [],
           sensitive: false,
-          language: language
-//          addedKTagRelations: KTagRelations.init(addedKTagRelationList: Set(), addingKTagRelationRequestedList: Set(), deletingKTagRelationRequestedList: Set())
+          language: language,
+          addedKTagRelations: nil
     )
   }
 
@@ -182,7 +182,7 @@ public class Status: AnyStatus, Codable, Identifiable, Equatable, Hashable {
                    filtered: reblog.filtered,
                    sensitive: reblog.sensitive,
                    language: reblog.language
-//                   ,addedKTagRelations: reblog.kTagRelations
+                   ,addedKTagRelations: reblog.kTagRelations
       )
     }
     return nil
@@ -231,7 +231,7 @@ public final class ReblogStatus: AnyStatus, Codable, Identifiable, Equatable, Ha
   }
 
   public init(id: String, content: HTMLString, account: Account, createdAt: ServerDate, editedAt: ServerDate?, mediaAttachments: [MediaAttachment], mentions: [Mention], repliesCount: Int, reblogsCount: Int, favouritesCount: Int, card: Card?, favourited: Bool?, reblogged: Bool?, pinned: Bool?, bookmarked: Bool?, emojis: [Emoji], url: String?, application: Application? = nil, inReplyToId: String?, inReplyToAccountId: String?, visibility: Visibility, poll: Poll?, spoilerText: HTMLString, filtered: [Filtered]?, sensitive: Bool, language: String?
-//              ,kTagRelations: KTagRelations = KTagRelations.init(addedKTagRelationList: Set(), addingKTagRelationRequestedList: Set(), deletingKTagRelationRequestedList: Set())
+              ,kTagRelations: KTagRelations?
   ) {
     self.id = id
     self.content = content
@@ -259,7 +259,7 @@ public final class ReblogStatus: AnyStatus, Codable, Identifiable, Equatable, Ha
     self.filtered = filtered
     self.sensitive = sensitive
     self.language = language
-//      self.kTagRelations = kTagRelations
+      self.kTagRelations = kTagRelations
   }
 }
 
