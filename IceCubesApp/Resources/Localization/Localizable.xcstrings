@@ -38523,6 +38523,116 @@
         }
       }
     },
+    "notifications.label.k-tag.add.push" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "タグ追加済"
+          }
+        }
+      }
+    },
+    "notifications.label.k-tag.delete.push" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "タグ削除済"
+          }
+        }
+      }
+    },
+    "notifications.label.k-tag.follow" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "タグフォロー"
+          }
+        }
+      }
+    },
+    "notifications.label.k-tag.follow.push" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "タグフォロー済"
+          }
+        }
+      }
+    },
+    "notifications.label.k-tag.relation.request.add" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "タグ追加リクエスト"
+          }
+        }
+      }
+    },
+    "notifications.label.k-tag.relation.request.add.approved" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "タグ付け追加要求承認"
+          }
+        }
+      }
+    },
+    "notifications.label.k-tag.relation.request.add.denied" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "タグ追加要求拒否"
+          }
+        }
+      }
+    },
+    "notifications.label.k-tag.relation.request.delete" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "タグ付け削除リクエスト"
+          }
+        }
+      }
+    },
+    "notifications.label.k-tag.relation.request.delete.approved" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "タグ付け削除要求承認"
+          }
+        }
+      }
+    },
+    "notifications.label.k-tag.relation.request.delete.denied" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "タグ付け削除要求拒否"
+          }
+        }
+      }
+    },
     "notifications.label.mention %lld" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -40115,6 +40225,86 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "跟隨申請"
+          }
+        }
+      }
+    },
+    "notifications.menu-title.k-tag.follow" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "タグフォロー"
+          }
+        }
+      }
+    },
+    "notifications.menu-title.k-tag.request" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "タグ追加削除要求"
+          }
+        }
+      }
+    },
+    "notifications.menu-title.k-tag.request.add" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "タグ追加"
+          }
+        }
+      }
+    },
+    "notifications.menu-title.k-tag.request.delete" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clave"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gakoa"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clé"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "タグ削除"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sleutel"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anahtar"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "密钥"
           }
         }
       }

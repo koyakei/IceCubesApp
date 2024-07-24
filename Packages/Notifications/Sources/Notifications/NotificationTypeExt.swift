@@ -21,6 +21,20 @@ extension Models.Notification.NotificationType {
       "notifications.label.poll"
     case .update:
       "notifications.label.update"
+        case .k_tag_add_relation_request:
+            "notifications.label.k-tag.relation.request.add"
+        case .k_tag_delete_relation_request:
+            "notifications.label.k-tag.relation.request.delete"
+        case .follow_k_tag:
+            "notifications.label.k-tag.follow"
+        case .k_tag_add_relation_request_denied:
+            "notifications.label.k-tag.relation.request.add.denied"
+        case .k_tag_delete_relation_request_denied:
+            "notifications.label.k-tag.relation.request.delete.denied"
+        case .k_tag_add_relation_request_approved:
+            "notifications.label.k-tag.relation.request.add.approved"
+        case .k_tag_delete_relation_request_approved:
+            "notifications.label.k-tag.relation.request.delete.approved"
     }
   }
 
@@ -42,6 +56,20 @@ extension Models.Notification.NotificationType {
       "notifications.label.poll.push"
     case .update:
       "notifications.label.update.push"
+        case .k_tag_add_relation_request:
+            "notifications.label.k-tag.add.push"
+        case .k_tag_delete_relation_request:
+            "notifications.label.k-tag.delete.push"
+        case .follow_k_tag:
+            "notifications.label.k-tag.follow.push"
+        case .k_tag_add_relation_request_denied:
+            "notifications.label.k-tag.request.add.denied.push"
+        case .k_tag_delete_relation_request_denied:
+            "notifications.label.k-tag.request.delete.denied.push"
+        case .k_tag_add_relation_request_approved:
+            "notifications.label.k-tag.request.add.approved.push"
+        case .k_tag_delete_relation_request_approved:
+            "notifications.label.k-tag.request.delete.approved.push"
     }
   }
 
@@ -64,6 +92,20 @@ extension Models.Notification.NotificationType {
       return Image(systemName: "chart.bar.fill")
     case .update:
       return Image(systemName: "pencil.line")
+        case .k_tag_add_relation_request:
+            return Image(systemName: "person.fill.badge.plus")
+        case .k_tag_delete_relation_request:
+            return Image(systemName: "person.fill.badge.minus")
+        case .follow_k_tag:
+            return Image(systemName: "person.fill.badge.plus")
+        case .k_tag_add_relation_request_denied:
+            return Image(systemName: "person.fill.badge.minus")
+        case .k_tag_delete_relation_request_denied:
+            return Image(systemName: "person.fill.badge.minus")
+        case .k_tag_add_relation_request_approved:
+            return Image(systemName: "person.fill.badge.plus")
+        case .k_tag_delete_relation_request_approved:
+            return Image(systemName: "person.fill.badge.plus")
     }
   }
 
@@ -73,11 +115,14 @@ extension Models.Notification.NotificationType {
       return Color.orange.opacity(0.80)
     }
     switch self {
-    case .status, .mention, .update, .poll:
+        case .status, .mention, .update, .poll, .k_tag_add_relation_request, .k_tag_delete_relation_request, .k_tag_delete_relation_request_approved, .k_tag_add_relation_request_approved,
+                .k_tag_delete_relation_request_denied,
+                .k_tag_add_relation_request_denied
+            :
       return Theme.shared.tintColor.opacity(0.80)
     case .reblog:
       return Color.teal.opacity(0.80)
-    case .follow, .follow_request:
+        case .follow, .follow_request, .follow_k_tag:
       return Color.cyan.opacity(0.80)
     case .favourite:
       return Color.yellow.opacity(0.80)
@@ -102,6 +147,15 @@ extension Models.Notification.NotificationType {
       "notifications.menu-title.poll"
     case .update:
       "notifications.menu-title.update"
+    case .k_tag_add_relation_request:
+        "notifications.menu-title.k-tag.request.add"
+    case .k_tag_delete_relation_request:
+        "notifications.menu-title.k-tag.request.delete"
+    case .follow_k_tag:
+        "notifications.menu-title.k-tag.follow"
+    case .k_tag_add_relation_request_denied,.k_tag_delete_relation_request_denied
+        ,.k_tag_add_relation_request_approved, .k_tag_delete_relation_request_approved:
+        "notifications.menu-title.k-tag.request"
     }
   }
 }

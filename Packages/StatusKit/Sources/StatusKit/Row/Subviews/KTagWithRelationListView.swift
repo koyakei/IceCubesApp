@@ -22,6 +22,7 @@ struct KTagSearchAndAddView : View {
     @Environment(StatusDataController.self) private var statusDataController
     func fetchSearchResults() async {
         do {
+            
             searchResults = try await viewModel.client.get(endpoint: KTagRequests.search(query: searchText, type: nil, offset: nil, following: nil))
         } catch {
             print(error)
@@ -35,10 +36,6 @@ struct KTagSearchAndAddView : View {
         }
 
     var body: some View {
-        
-                    
-                    // 選択されたテキストのリスト表示
-            
         VStack {
             TextField("Search", text: $searchText)
                 .padding()
@@ -73,22 +70,25 @@ struct KTagSearchAndAddView : View {
                 .padding(.top)
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack{
-                    ForEach(statusDataController.kTagRelations.filter({$0.kTagDeleteRelationRequests.isEmpty}), id: \.kTag.id) { kTagRelation in
-                        Button(action: {
-                            Task {
-                                await viewModel.del(tagId: kTagRelation.kTag.id)
-                            }
-                        }) {
-                            Text("x:" + kTagRelation.kTag.name).font(.headline)
-                        }.foregroundColor(.blue)
-                            .background(Color(.systemGray6))
-                            .cornerRadius(8)
-                    }
-                    ForEach(statusDataController.kTagRelations.filter({!$0.kTagDeleteRelationRequests.isEmpty}), id: \.kTag.id) { kTagRelation in
-                        Button(action: {
-                            
-                        }) {
-                            Text( kTagRelation.kTag.name).font(.headline).strikethrough(color: .red)
+                    ForEach(statusDataController.kTagRelations.sorted(by:{ $0.highLighted && !$1.highLighted }), id: \.kTag.id) { kTagRelation in
+                        if kTagRelation.kTagDeleteRelationRequests.isEmpty{
+                            Button(action: {
+                                Task {
+                                    await viewModel.del(tagId: kTagRelation.kTag.id)
+                                }
+                            }) {
+                                Text("x:" + kTagRelation.kTag.name).font(.headline)
+                            }.foregroundColor(.blue)
+                                .background(Color(.systemGray6))
+                                .cornerRadius(8)
+                        }else{
+                            // 削除リクエストがかかっている場合、色で変えるかな？
+                            Button(action: {
+                                
+                            }) {
+                                Text( kTagRelation.kTag.name).font(.headline).strikethrough(color: .red)
+                            }.foregroundColor(.red).background(Color(.systemFill))
+                                .cornerRadius(8)
                         }
                     }
                 }

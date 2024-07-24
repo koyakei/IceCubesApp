@@ -16,7 +16,8 @@ public final class AddedKTagRelation :CreatedKTagAddRelationRequestDataProtocol,
     public let kTag: KTag
     public let isOwned: Bool
     public let kTagDeleteRelationRequests:[KTagDeleteRelationRequest]
-    public init(id: String, kTagId: String,statusId:String ,accountId: String,kTag:KTag, isOwned: Bool,kTagDeleteRelationRequests:[KTagDeleteRelationRequest]) {
+    public let highLighted: Bool
+    public init(id: String, kTagId: String,statusId:String ,accountId: String,kTag:KTag, isOwned: Bool,kTagDeleteRelationRequests:[KTagDeleteRelationRequest], highLighted: Bool = false) {
         self.id = id
         self.kTagId = kTagId
         self.statusId = statusId
@@ -24,6 +25,7 @@ public final class AddedKTagRelation :CreatedKTagAddRelationRequestDataProtocol,
         self.kTag = kTag
         self.isOwned = isOwned
         self.kTagDeleteRelationRequests = kTagDeleteRelationRequests
+        self.highLighted = highLighted
     }
     public func encode(to encoder: Encoder) throws {
             var container = encoder.container(keyedBy: CodingKeys.self)
@@ -34,6 +36,7 @@ public final class AddedKTagRelation :CreatedKTagAddRelationRequestDataProtocol,
             try container.encode(kTag, forKey: .kTag)
             try container.encode(isOwned, forKey: .isOwned)
             try container.encode(kTagDeleteRelationRequests, forKey: .kTagDeleteRelationRequests)
+        try container.encodeIfPresent(highLighted, forKey: .highLighted)
         }
     private enum CodingKeys: String, CodingKey {
             case id
@@ -43,6 +46,7 @@ public final class AddedKTagRelation :CreatedKTagAddRelationRequestDataProtocol,
             case kTag
             case isOwned
             case kTagDeleteRelationRequests
+            case highLighted
         }
     
     required public init(from decoder: any Decoder) throws {
@@ -66,9 +70,9 @@ public final class AddedKTagRelation :CreatedKTagAddRelationRequestDataProtocol,
         self.statusId = try container.decode(String.self, forKey: .statusId)
         self.accountId = try container.decode(String.self, forKey: .accountId)
         self.isOwned = try container.decode(Bool.self, forKey: .isOwned)
-        
         self.kTag = try container.decode(KTag.self, forKey: .kTag)
         self.kTagId = try container.decode(String.self, forKey: .kTagId)
+        self.highLighted = try container.decodeIfPresent(Bool.self, forKey: .highLighted) ?? false
     }
     
     public init( _ tag: DeletingKTagRelationRequested){
@@ -78,6 +82,7 @@ public final class AddedKTagRelation :CreatedKTagAddRelationRequestDataProtocol,
         self.accountId = tag.accountId
         self.kTag = tag.kTag
         self.isOwned = false
+        self.highLighted = false
         if let r = tag.kTagDeleteRelationRequest {
             self.kTagDeleteRelationRequests = [r]
         } else {

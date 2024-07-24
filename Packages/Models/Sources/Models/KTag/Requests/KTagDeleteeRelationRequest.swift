@@ -8,7 +8,7 @@
 import Foundation
 
 
-public struct KTagDeleteRelationRequest :Codable, Sendable{
+public struct KTagDeleteRelationRequest :Codable, Sendable, Equatable{
     public let id: String
     public let kTagId: String
     public let kTagRelationId :String

@@ -2,7 +2,7 @@ import Foundation
 import Models
 
 public enum KTagRequests: Endpoint {
-  case tag(id: String)
+    case update(id: String, json: KTagData)
   case follow(id: String)
   case unfollow(id: String)
   case postKtag(json: KTagData)
@@ -10,8 +10,8 @@ public enum KTagRequests: Endpoint {
 
   public func path() -> String {
     switch self {
-    case let .tag(id):
-      "k_tags/\(id)/"
+    case let .update(id,_): // put
+        "k_tags/\(id)"
     case let .follow(id):
       "k_tags/\(id)/follow"
     case let .unfollow(id):
@@ -47,6 +47,8 @@ public enum KTagRequests: Endpoint {
 protocol KTagProtocol{
     var name: String{get}
 }
+
+
 
 public struct KTagData: KTagProtocol,Encodable, Sendable {
   public let name: String

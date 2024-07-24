@@ -58,6 +58,11 @@ struct NotificationsTab: View {
           switch type {
           case .follow, .follow_request:
             routerPath.navigate(to: .accountDetailWithAccount(account: newValue.notification.account))
+          case .k_tag_add_relation_request, .k_tag_delete_relation_request:
+//              この場合は承認ビューへ遷移させる
+              if let status = newValue.notification.status {
+                routerPath.navigate(to: .statusDetailWithStatus(status: status))
+              }
           default:
             if let status = newValue.notification.status {
               routerPath.navigate(to: .statusDetailWithStatus(status: status))

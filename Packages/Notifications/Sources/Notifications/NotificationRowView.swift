@@ -27,17 +27,24 @@ struct NotificationRowView: View {
                  height: AvatarView.FrameConfig.status.height)
           .accessibilityHidden(true)
       }
-      VStack(alignment: .leading, spacing: 0) {
-        makeMainLabel(type: notification.type)
-          // The main label is redundant for mentions
-          .accessibilityHidden(notification.type == .mention)
-        makeContent(type: notification.type)
-        if notification.type == .follow_request,
-           followRequests.map(\.id).contains(notification.accounts[0].id)
-        {
-          FollowRequestButtons(account: notification.accounts[0])
+        VStack(alignment: .leading, spacing: 0) {
+            makeMainLabel(type: notification.type)
+            // The main label is redundant for mentions
+                .accessibilityHidden(notification.type == .mention)
+            makeContent(type: notification.type)
+            if notification.type == .follow_request,
+               followRequests.map(\.id).contains(notification.accounts[0].id)
+            {
+                FollowRequestButtons(account: notification.accounts[0])
+            }
+            //          承認非承認ボタンだけ表示
+            if  notification.type == .k_tag_add_relation_request {
+                if let kTagAddRealtionRequestForUser: KTagAddRelationRequestForUser = notification.notifications.first?.kTagAddRealtionRequestForUser {
+                    KTagAddRequestButtons(kTagAddRelationRequest: kTagAddRealtionRequestForUser)
+                }
+                
+            }
         }
-      }
     }
     .accessibilityElement(children: .combine)
     .accessibilityActions {
@@ -179,7 +186,7 @@ struct NotificationRowView: View {
           .font(.scaledCallout)
           .foregroundStyle(.secondary)
 
-        if type == .follow {
+          if type == .follow  {
           EmojiTextApp(notification.accounts[0].note,
                        emojis: notification.accounts[0].emojis)
             .accessibilityLabel(notification.accounts[0].note.asRawText)
@@ -217,3 +224,4 @@ struct NotificationRowView: View {
     }
   }
 }
+
