@@ -93,19 +93,19 @@ extension Models.Notification.NotificationType {
     case .update:
       return Image(systemName: "pencil.line")
         case .k_tag_add_relation_request:
-            return Image(systemName: "person.fill.badge.plus")
+            return Image(systemName: "tag.fill")
         case .k_tag_delete_relation_request:
-            return Image(systemName: "person.fill.badge.minus")
+            return Image(systemName: "tag.slash")
         case .follow_k_tag:
-            return Image(systemName: "person.fill.badge.plus")
+            return Image(systemName: "tag")
         case .k_tag_add_relation_request_denied:
-            return Image(systemName: "person.fill.badge.minus")
+            return Image(systemName: "tag.square")
         case .k_tag_delete_relation_request_denied:
-            return Image(systemName: "person.fill.badge.minus")
+            return Image(systemName: "tag.square.fill")
         case .k_tag_add_relation_request_approved:
-            return Image(systemName: "person.fill.badge.plus")
+            return Image(systemName: "tag.circle")
         case .k_tag_delete_relation_request_approved:
-            return Image(systemName: "person.fill.badge.plus")
+            return Image(systemName: "tag.slash")
     }
   }
 
