@@ -11,14 +11,14 @@ public struct KTagAddRelationRequestForUser:NotIdentifiedKTagAddRelationRequestD
     public var requester: Account
     public let kTagId: String
     public let kTag: KTag
-    public enum DecisionStatus : Int, Codable, Sendable{
+    public enum RequestStatus : Int, Codable, Sendable{
         case NotDecided
         case Approved
         case Deny
     }
-    public let decisionStatus: DecisionStatus
+    public let requestStatus: RequestStatus
     
     public let statusId: String
-    public let status: Status
-    public let description: String
+//    public let description: String
+
 }

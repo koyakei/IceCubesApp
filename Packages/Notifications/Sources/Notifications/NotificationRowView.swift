@@ -39,10 +39,9 @@ struct NotificationRowView: View {
             }
             //          承認非承認ボタンだけ表示
             if  notification.type == .k_tag_add_relation_request {
-                if let kTagAddRealtionRequestForUser: KTagAddRelationRequestForUser = notification.notifications.first?.kTagAddRealtionRequestForUser {
+                if let kTagAddRealtionRequestForUser: KTagAddRelationRequestForUser = notification.notifications.first?.kTagAddRelationRequest {
                     KTagAddRequestButtons(kTagAddRelationRequest: kTagAddRealtionRequestForUser)
                 }
-                
             }
         }
     }
@@ -177,6 +176,15 @@ struct NotificationRowView: View {
             .lineLimit(4)
             .environment(\.isMediaCompact, true)
         }
+          if  notification.type == .k_tag_add_relation_request {
+              StatusRowExternalView(viewModel: .init(status: status,
+                                                     client: client,
+                                                     routerPath: routerPath,
+                                                     showActions: false,
+                                                     textDisabled: true))
+                .lineLimit(4)
+                .environment(\.isMediaCompact, true)
+          }
         Spacer()
       }
       .environment(\.isCompact, true)
