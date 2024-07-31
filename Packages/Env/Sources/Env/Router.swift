@@ -261,7 +261,7 @@ public enum SettingsStartingPoint {
   public func navigateToAccountFrom(acct: String, url: URL) async {
     guard let client else { return }
     let results: SearchResults? = try? await client.get(endpoint: Search.search(query: acct,
-                                                                                type: "accounts",
+                                                                                type: .accounts,
                                                                                 offset: nil,
                                                                                 following: nil),
                                                         forceVersion: .v2)
@@ -275,7 +275,7 @@ public enum SettingsStartingPoint {
   public func navigateToAccountFrom(url: URL) async {
     guard let client else { return }
     let results: SearchResults? = try? await client.get(endpoint: Search.search(query: url.absoluteString,
-                                                                                type: "accounts",
+                                                                                type: .accounts,
                                                                                 offset: nil,
                                                                                 following: nil),
                                                         forceVersion: .v2)
