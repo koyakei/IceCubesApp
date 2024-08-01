@@ -176,15 +176,7 @@ struct NotificationRowView: View {
             .lineLimit(4)
             .environment(\.isMediaCompact, true)
         }
-          if  notification.type == .k_tag_add_relation_request {
-              StatusRowExternalView(viewModel: .init(status: status,
-                                                     client: client,
-                                                     routerPath: routerPath,
-                                                     showActions: false,
-                                                     textDisabled: true))
-                .lineLimit(4)
-                .environment(\.isMediaCompact, true)
-          }
+          
         Spacer()
       }
       .environment(\.isCompact, true)
