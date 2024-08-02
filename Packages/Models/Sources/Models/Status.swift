@@ -36,7 +36,7 @@ public protocol AnyStatus {
   var language: String? { get }
   var isHidden: Bool { get }
     var kTagRelations: [AddedKTagRelation]{ get }
-    var kTagAddRealationRequests: [AddingKTagRelationRequested]{ get }
+    var kTagAddRelationRequests: [AddingKTagRelationRequested]{ get }
 }
 
 public final class Status: AnyStatus, Codable, Identifiable, Equatable, Hashable {
@@ -77,7 +77,7 @@ public final class Status: AnyStatus, Codable, Identifiable, Equatable, Hashable
   public let sensitive: Bool
   public let language: String?
     public let kTagRelations: [AddedKTagRelation]
-    public let kTagAddRealationRequests: [AddingKTagRelationRequested]
+    public let kTagAddRelationRequests: [AddingKTagRelationRequested]
 
   public var isHidden: Bool {
     filtered?.first?.filter.filterAction == .hide
@@ -109,7 +109,7 @@ public final class Status: AnyStatus, Codable, Identifiable, Equatable, Hashable
         self.poll = try container.decodeIfPresent(Poll.self, forKey: .poll)
         self.spoilerText = try container.decode(HTMLString.self, forKey: .spoilerText)
         self.filtered = try container.decodeIfPresent([Filtered].self, forKey: .filtered)
-        self.kTagAddRealationRequests = try container.decodeIfPresent([AddingKTagRelationRequested].self, forKey: .kTagAddRealationRequests) ?? []
+        self.kTagAddRelationRequests = try container.decodeIfPresent([AddingKTagRelationRequested].self, forKey: .kTagAddRelationRequests) ?? []
         self.sensitive = try container.decode(Bool.self, forKey: .sensitive)
         self.kTagRelations = try container.decodeIfPresent([AddedKTagRelation].self, forKey: .kTagRelations) ?? []
         self.language = try container.decodeIfPresent(String.self, forKey: .language)
@@ -119,7 +119,7 @@ public final class Status: AnyStatus, Codable, Identifiable, Equatable, Hashable
     mediaAttachments.map { .init(status: self, attachment: $0) }
   }
 
-    public init(id: String, content: HTMLString, account: Account, createdAt: ServerDate, editedAt: ServerDate?, reblog: ReblogStatus?, mediaAttachments: [MediaAttachment], mentions: [Mention], repliesCount: Int, reblogsCount: Int, favouritesCount: Int, card: Card?, favourited: Bool?, reblogged: Bool?, pinned: Bool?, bookmarked: Bool?, emojis: [Emoji], url: String?, application: Application?, inReplyToId: String?, inReplyToAccountId: String?, visibility: Visibility, poll: Poll?, spoilerText: HTMLString, filtered: [Filtered]?, sensitive: Bool, language: String?, kTagRelations: [AddedKTagRelation]) {
+    public init(id: String, content: HTMLString, account: Account, createdAt: ServerDate, editedAt: ServerDate?, reblog: ReblogStatus?, mediaAttachments: [MediaAttachment], mentions: [Mention], repliesCount: Int, reblogsCount: Int, favouritesCount: Int, card: Card?, favourited: Bool?, reblogged: Bool?, pinned: Bool?, bookmarked: Bool?, emojis: [Emoji], url: String?, application: Application?, inReplyToId: String?, inReplyToAccountId: String?, visibility: Visibility, poll: Poll?, spoilerText: HTMLString, filtered: [Filtered]?, sensitive: Bool, language: String?, kTagRelations: [AddedKTagRelation],kTagAddRelationRequests: [AddingKTagRelationRequested]) {
     self.id = id
     self.content = content
     self.account = account
@@ -148,7 +148,7 @@ public final class Status: AnyStatus, Codable, Identifiable, Equatable, Hashable
     self.sensitive = sensitive
     self.language = language
     self.kTagRelations = kTagRelations
-    self.kTagAddRealationRequests = []
+    self.kTagAddRelationRequests = kTagAddRelationRequests
   }
 
   public static func placeholder(forSettings: Bool = false, language: String? = nil) -> Status {
@@ -180,7 +180,10 @@ public final class Status: AnyStatus, Codable, Identifiable, Equatable, Hashable
           spoilerText: .init(stringValue: ""),
           filtered: [],
           sensitive: false,
-          language: language, kTagRelations: [])
+          language: language,
+          kTagRelations: [],
+          kTagAddRelationRequests: []
+    )
   }
 
   public static func placeholders() -> [Status] {
@@ -217,7 +220,8 @@ public final class Status: AnyStatus, Codable, Identifiable, Equatable, Hashable
                    filtered: reblog.filtered,
                    sensitive: reblog.sensitive,
                    language: reblog.language,
-                   kTagRelations: reblog.kTagRelations
+                   kTagRelations: reblog.kTagRelations,
+                   kTagAddRelationRequests: reblog.kTagAddRelationRequests
       )
     }
     return nil
@@ -261,13 +265,15 @@ public final class ReblogStatus: AnyStatus, Codable, Identifiable, Equatable, Ha
   public let sensitive: Bool
   public let language: String?
   public var kTagRelations: [AddedKTagRelation]
-  public var kTagAddRealationRequests: [AddingKTagRelationRequested]
+  public var kTagAddRelationRequests: [AddingKTagRelationRequested]
   public var isHidden: Bool {
     filtered?.first?.filter.filterAction == .hide
   }
 
   public init(id: String, content: HTMLString, account: Account, createdAt: ServerDate, editedAt: ServerDate?, mediaAttachments: [MediaAttachment], mentions: [Mention], repliesCount: Int, reblogsCount: Int, favouritesCount: Int, card: Card?, favourited: Bool?, reblogged: Bool?, pinned: Bool?, bookmarked: Bool?, emojis: [Emoji], url: String?, application: Application? = nil, inReplyToId: String?, inReplyToAccountId: String?, visibility: Visibility, poll: Poll?, spoilerText: HTMLString, filtered: [Filtered]?, sensitive: Bool, language: String?
-//              ,kTagRelations: KTagRelations?
+              ,kTagRelations: [AddedKTagRelation]
+              , kTagAddRelationRequests: [AddingKTagRelationRequested]
+            
   ) {
     self.id = id
     self.content = content
@@ -295,8 +301,8 @@ public final class ReblogStatus: AnyStatus, Codable, Identifiable, Equatable, Ha
     self.filtered = filtered
     self.sensitive = sensitive
     self.language = language
-      self.kTagRelations = []
-      self.kTagAddRealationRequests = []
+      self.kTagRelations = kTagRelations
+      self.kTagAddRelationRequests = kTagAddRelationRequests
   }
 }
 
