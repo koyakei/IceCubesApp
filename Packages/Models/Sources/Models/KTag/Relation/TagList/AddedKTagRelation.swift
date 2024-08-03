@@ -51,21 +51,20 @@ public final class AddedKTagRelation :CreatedKTagAddRelationRequestDataProtocol,
     
     required public init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        for key in container.allKeys {
-                    if let stringValue = try? container.decode(String.self, forKey: key) {
-                        print("Key: \(key.stringValue), Value: \(stringValue)")
-                    } else if let intValue = try? container.decode(Int.self, forKey: key) {
-                        print("Key: \(key.stringValue), Value: \(intValue)")
-                    } else if let doubleValue = try? container.decode(Double.self, forKey: key) {
-                        print("Key: \(key.stringValue), Value: \(doubleValue)")
-                    } else if let boolValue = try? container.decode(Bool.self, forKey: key) {
-                        print("Key: \(key.stringValue), Value: \(boolValue)")
-                    } else {
-                        print("Key: \(key.stringValue), Value: Unknown type")
-                    }
-                }
-        self.kTagDeleteRelationRequests = []
-//        try container.decode([KTagDeleteRelationRequest].self, forKey: .kTagDeleteRelationRequests)
+//        for key in container.allKeys {
+//                    if let stringValue = try? container.decode(String.self, forKey: key) {
+//                        print("Key: \(key.stringValue), Value: \(stringValue)")
+//                    } else if let intValue = try? container.decode(Int.self, forKey: key) {
+//                        print("Key: \(key.stringValue), Value: \(intValue)")
+//                    } else if let doubleValue = try? container.decode(Double.self, forKey: key) {
+//                        print("Key: \(key.stringValue), Value: \(doubleValue)")
+//                    } else if let boolValue = try? container.decode(Bool.self, forKey: key) {
+//                        print("Key: \(key.stringValue), Value: \(boolValue)")
+//                    } else {
+//                        print("Key: \(key.stringValue), Value: Unknown type")
+//                    }
+//                }
+        self.kTagDeleteRelationRequests =  try container.decodeIfPresent([KTagDeleteRelationRequest].self, forKey: .kTagDeleteRelationRequests) ?? []
         self.id = try container.decode(String.self, forKey: .id)
         self.statusId = try container.decode(String.self, forKey: .statusId)
         self.accountId = try container.decode(String.self, forKey: .accountId)

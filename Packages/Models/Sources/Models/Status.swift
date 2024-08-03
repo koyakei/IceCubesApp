@@ -36,7 +36,7 @@ public protocol AnyStatus {
   var language: String? { get }
   var isHidden: Bool { get }
     var kTagRelations: [AddedKTagRelation]{ get }
-    var kTagAddRelationRequests: [AddingKTagRelationRequested]{ get }
+    var kTagAddRelationRequests: [KTagAddRelationRequestForUser]{ get }
 }
 
 public final class Status: AnyStatus, Codable, Identifiable, Equatable, Hashable {
@@ -77,7 +77,7 @@ public final class Status: AnyStatus, Codable, Identifiable, Equatable, Hashable
   public let sensitive: Bool
   public let language: String?
     public let kTagRelations: [AddedKTagRelation]
-    public let kTagAddRelationRequests: [AddingKTagRelationRequested]
+    public let kTagAddRelationRequests: [KTagAddRelationRequestForUser]
 
   public var isHidden: Bool {
     filtered?.first?.filter.filterAction == .hide
@@ -109,7 +109,7 @@ public final class Status: AnyStatus, Codable, Identifiable, Equatable, Hashable
         self.poll = try container.decodeIfPresent(Poll.self, forKey: .poll)
         self.spoilerText = try container.decode(HTMLString.self, forKey: .spoilerText)
         self.filtered = try container.decodeIfPresent([Filtered].self, forKey: .filtered)
-        self.kTagAddRelationRequests = try container.decodeIfPresent([AddingKTagRelationRequested].self, forKey: .kTagAddRelationRequests) ?? []
+        self.kTagAddRelationRequests = try container.decodeIfPresent([KTagAddRelationRequestForUser].self, forKey: .kTagAddRelationRequests) ?? []
         self.sensitive = try container.decode(Bool.self, forKey: .sensitive)
         self.kTagRelations = try container.decodeIfPresent([AddedKTagRelation].self, forKey: .kTagRelations) ?? []
         self.language = try container.decodeIfPresent(String.self, forKey: .language)
@@ -119,7 +119,7 @@ public final class Status: AnyStatus, Codable, Identifiable, Equatable, Hashable
     mediaAttachments.map { .init(status: self, attachment: $0) }
   }
 
-    public init(id: String, content: HTMLString, account: Account, createdAt: ServerDate, editedAt: ServerDate?, reblog: ReblogStatus?, mediaAttachments: [MediaAttachment], mentions: [Mention], repliesCount: Int, reblogsCount: Int, favouritesCount: Int, card: Card?, favourited: Bool?, reblogged: Bool?, pinned: Bool?, bookmarked: Bool?, emojis: [Emoji], url: String?, application: Application?, inReplyToId: String?, inReplyToAccountId: String?, visibility: Visibility, poll: Poll?, spoilerText: HTMLString, filtered: [Filtered]?, sensitive: Bool, language: String?, kTagRelations: [AddedKTagRelation],kTagAddRelationRequests: [AddingKTagRelationRequested]) {
+    public init(id: String, content: HTMLString, account: Account, createdAt: ServerDate, editedAt: ServerDate?, reblog: ReblogStatus?, mediaAttachments: [MediaAttachment], mentions: [Mention], repliesCount: Int, reblogsCount: Int, favouritesCount: Int, card: Card?, favourited: Bool?, reblogged: Bool?, pinned: Bool?, bookmarked: Bool?, emojis: [Emoji], url: String?, application: Application?, inReplyToId: String?, inReplyToAccountId: String?, visibility: Visibility, poll: Poll?, spoilerText: HTMLString, filtered: [Filtered]?, sensitive: Bool, language: String?, kTagRelations: [AddedKTagRelation],kTagAddRelationRequests: [KTagAddRelationRequestForUser]) {
     self.id = id
     self.content = content
     self.account = account
@@ -265,14 +265,14 @@ public final class ReblogStatus: AnyStatus, Codable, Identifiable, Equatable, Ha
   public let sensitive: Bool
   public let language: String?
   public var kTagRelations: [AddedKTagRelation]
-  public var kTagAddRelationRequests: [AddingKTagRelationRequested]
+  public var kTagAddRelationRequests: [KTagAddRelationRequestForUser]
   public var isHidden: Bool {
     filtered?.first?.filter.filterAction == .hide
   }
 
   public init(id: String, content: HTMLString, account: Account, createdAt: ServerDate, editedAt: ServerDate?, mediaAttachments: [MediaAttachment], mentions: [Mention], repliesCount: Int, reblogsCount: Int, favouritesCount: Int, card: Card?, favourited: Bool?, reblogged: Bool?, pinned: Bool?, bookmarked: Bool?, emojis: [Emoji], url: String?, application: Application? = nil, inReplyToId: String?, inReplyToAccountId: String?, visibility: Visibility, poll: Poll?, spoilerText: HTMLString, filtered: [Filtered]?, sensitive: Bool, language: String?
               ,kTagRelations: [AddedKTagRelation]
-              , kTagAddRelationRequests: [AddingKTagRelationRequested]
+              , kTagAddRelationRequests: [KTagAddRelationRequestForUser]
             
   ) {
     self.id = id

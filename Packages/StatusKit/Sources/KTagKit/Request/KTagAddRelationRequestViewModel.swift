@@ -19,6 +19,5 @@ public struct KTagAddRelationRequestViewModel: Observable{
     func deny() async{
         kTagAddRelationRequest = await try client.post(endpoint: KTagAddRelationRequests.deny(id: kTagAddRelationRequest.id))
     }
-    
-    
+
 }

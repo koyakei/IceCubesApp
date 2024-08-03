@@ -78,7 +78,7 @@ struct KTagSearchAndAddView : View {
                                 }
                             }) {
                                 Text("x:" + kTagRelation.kTag.name).font(.headline)
-                            }.foregroundColor(.blue)
+                            }.foregroundColor(color(kTagRelation))
                                 .background(Color(.systemGray6))
                                 .cornerRadius(8)
                         }else{
@@ -96,7 +96,27 @@ struct KTagSearchAndAddView : View {
             
             
         }
+        
     }
-    
+    func color(_ tag: any NotIdentifiedKTagAddRelationRequestDataProtocol) -> Color {
+        switch tag {
+            case is AddingKTagRelationRequested:
+                if (tag.isOwned){
+                    return .purple
+                } else{
+                    return .blue
+                }
+            case is DeletingKTagRelationRequested:
+                if (tag.isOwned){
+                    return .red
+                } else{
+                    return .yellow
+                }
+        case is AddedKTagRelation:
+            return .clear // Doubleの場合は緑色
+        default:
+                return .clear // 他の型の場合は灰色
+        }
+    }
 }
 
