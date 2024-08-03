@@ -18,25 +18,28 @@ public struct KTagAddRequestButtons: View {
   public var body: some View {
       HStack {
           Text(kTagAddRelationRequest.kTag.name)
-          
-          if kTagAddRelationRequest.requestStatus != KTagAddRelationRequestForUser.RequestStatus.Approved{
-              Button(action: {
-                  Task{
-                      kTagAddRelationRequest = try await client.post(endpoint: KTagAddRelationRequests.approve(id: kTagAddRelationRequest.id))
+          if kTagAddRelationRequest.requestStatus == KTagAddRelationRequestForUser.RequestStatus.NotDecided{
+              if kTagAddRelationRequest.requestStatus != KTagAddRelationRequestForUser.RequestStatus.Approved{
+                  Button(action: {
+                      Task{
+                          kTagAddRelationRequest = try await client.post(endpoint: KTagAddRelationRequests.approve(id: kTagAddRelationRequest.id))
+                      }
+                  }){
+                      Text("承認")
                   }
-              }){
-                  Text("承認")
               }
-          }
-          if kTagAddRelationRequest.requestStatus != KTagAddRelationRequestForUser.RequestStatus.Deny{
-              
-              Button(action: {
-                  Task{
-                      kTagAddRelationRequest = try await client.post(endpoint: KTagAddRelationRequests.deny(id: kTagAddRelationRequest.id))
+              if kTagAddRelationRequest.requestStatus != KTagAddRelationRequestForUser.RequestStatus.Deny{
+                  
+                  Button(action: {
+                      Task{
+                          kTagAddRelationRequest = try await client.post(endpoint: KTagAddRelationRequests.deny(id: kTagAddRelationRequest.id))
+                      }
+                  }){
+                      Text("拒否")
                   }
-              }){
-                  Text("拒否")
               }
+          } else {
+              Text("審査済み")
           }
       }
       .buttonStyle(.bordered)
