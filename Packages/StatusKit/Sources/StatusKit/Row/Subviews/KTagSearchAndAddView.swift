@@ -13,7 +13,6 @@ import Env
 @MainActor
 struct KTagSearchAndAddView : View {
     @State private var selectedTexts: [String] = []
-        let buttonTexts = ["Apple", "Banana", "Cherry", "Date", "Elderberry"]
     @State private var searchText = ""
    var viewModel: StatusRowViewModel
     @State private var selectedTag:[KTag] = []
@@ -113,9 +112,9 @@ struct KTagSearchAndAddView : View {
                     return .yellow
                 }
         case is AddedKTagRelation:
-            return .clear // Doubleの場合は緑色
+                return .pink // Doubleの場合は緑色
         default:
-                return .clear // 他の型の場合は灰色
+                return .blue // 他の型の場合は灰色
         }
     }
 }
