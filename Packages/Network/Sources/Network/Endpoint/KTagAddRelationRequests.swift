@@ -4,8 +4,8 @@ public enum KTagAddRelationRequests: Endpoint {
   case show(id: String)
   case create(json: KTagAddRelatioonRequestData)
   case list
-  case approve(id:String)
-  case deny(id:String)
+    case approve(id:String, reviewComment: String)
+  case deny(id:String, reviewComment: String)
     case delete(id:String)
 
   public func path() -> String {

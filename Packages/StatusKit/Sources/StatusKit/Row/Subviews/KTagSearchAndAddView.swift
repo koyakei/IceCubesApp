@@ -21,7 +21,6 @@ struct KTagSearchAndAddView : View {
     @Environment(StatusDataController.self) private var statusDataController
     func fetchSearchResults() async {
         do {
-            
             searchResults = try await viewModel.client.get(endpoint: KTagRequests.search(query: searchText, type: nil, offset: nil, following: nil))
         } catch {
             print(error)
