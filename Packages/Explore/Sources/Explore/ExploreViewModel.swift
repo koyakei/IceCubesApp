@@ -6,7 +6,7 @@ import SwiftUI
 @MainActor
 @Observable class ExploreViewModel {
   enum SearchScope: String, CaseIterable {
-    case all, people, hashtags, posts
+    case all, people, hashtags, posts, kTags
 
     var localizedString: LocalizedStringKey {
       switch self {
@@ -18,6 +18,8 @@ import SwiftUI
         .init("explore.scope.hashtags")
       case .posts:
         .init("explore.scope.posts")
+          case .kTags:
+                  .init("explore.scope.k-tags")
       }
     }
   }
@@ -127,6 +129,8 @@ import SwiftUI
         results.hashtags.count
       case .statuses:
         results.statuses.count
+      case .kTags:
+        results.kTags.count
       }
 
       var newPageResults: SearchResults = try await client.get(endpoint: Search.search(query: searchQuery,
@@ -148,6 +152,8 @@ import SwiftUI
         self.results[searchQuery]?.hashtags.append(contentsOf: newPageResults.hashtags)
       case .statuses:
         self.results[searchQuery]?.statuses.append(contentsOf: newPageResults.statuses)
+      case .kTags:
+        self.results[searchQuery]?.kTags.append(contentsOf: newPageResults.kTags)
       }
     } catch {}
   }

@@ -2,7 +2,7 @@ import Foundation
 
 public enum Search: Endpoint {
   public enum EntityType: String, Sendable {
-    case accounts, hashtags, statuses
+    case accounts, hashtags, statuses, kTags
   }
 
   case search(query: String, type: EntityType?, offset: Int?, following: Bool?)

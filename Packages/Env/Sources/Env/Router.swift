@@ -15,6 +15,7 @@ public enum RouterDestination: Hashable {
   case remoteStatusDetail(url: URL)
   case conversationDetail(conversation: Conversation)
   case hashTag(tag: String, account: String?)
+  case kTag(kTag: KTag)
   case list(list: Models.List)
   case followers(id: String)
   case following(id: String)

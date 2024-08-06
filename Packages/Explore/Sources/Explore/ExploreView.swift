@@ -191,6 +191,24 @@ public struct ExploreView: View {
         }
       }
     }
+      if !results.kTags.isEmpty, viewModel.searchScope == .all || viewModel.searchScope == .kTags {
+        Section("explore.section.k-tags") {
+            ForEach(results.kTags) { kTag in
+            KTagRowView(kTag: kTag)
+            #if !os(visionOS)
+              .listRowBackground(theme.primaryBackgroundColor)
+            #else
+              .listRowBackground(RoundedRectangle(cornerRadius: 8)
+                .foregroundStyle(.background).hoverEffect())
+              .listRowHoverEffectDisabled()
+            #endif
+              .padding(.vertical, 4)
+          }
+            if viewModel.searchScope == .kTags {
+            makeNextPageView(for: .kTags)
+          }
+        }
+      }
     if !results.statuses.isEmpty, viewModel.searchScope == .all || viewModel.searchScope == .posts {
       Section("explore.section.posts") {
         ForEach(results.statuses) { status in

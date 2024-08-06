@@ -77,6 +77,8 @@ extension View {
         AccountsListView(mode: .blocked)
       case .mutedAccounts:
         AccountsListView(mode: .muted)
+      case let .kTag(kTag):
+        KTagsListView(kTags: [kTag])
       }
     }
   }

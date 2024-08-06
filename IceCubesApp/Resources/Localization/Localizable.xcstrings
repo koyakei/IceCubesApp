@@ -27387,6 +27387,23 @@
         }
       }
     },
+    "explore.scope.k-tags" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "KTags"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "KTags"
+          }
+        }
+      }
+    },
     "explore.scope.people" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -28216,6 +28233,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "搜尋本站"
+          }
+        }
+      }
+    },
+    "explore.section.k-tags" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "KTags"
           }
         }
       }
@@ -33250,47 +33278,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "它仍可用作为你所处服务器的翻译服务的备用。"
-          }
-        }
-      }
-    },
-    "Key" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Clave"
-          }
-        },
-        "eu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gakoa"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Clé"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sleutel"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Anahtar"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "密钥"
           }
         }
       }

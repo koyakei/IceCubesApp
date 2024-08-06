@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol KtagProtocol:Identifiable, Codable, Sendable{
+public protocol KtagProtocol:Identifiable, Codable, Sendable, Equatable, Hashable{
     var id: String{get}
     var name: String{get}
     var accountId :String{get}
