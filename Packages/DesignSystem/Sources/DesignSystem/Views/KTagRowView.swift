@@ -14,7 +14,7 @@ public struct KTagRowView: View {
   public var body: some View {
     HStack {
       VStack(alignment: .leading) {
-        Text("#\(kTag.name)")
+        Text("$\(kTag.name)")
           .font(.scaledHeadline)
 //        Text("design.tag.n-posts-from-n-participants \(tag.totalUses) \(tag.totalAccounts)")
 //          .font(.scaledFootnote)

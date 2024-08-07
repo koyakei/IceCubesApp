@@ -78,7 +78,10 @@ extension View {
       case .mutedAccounts:
         AccountsListView(mode: .muted)
       case let .kTag(kTag):
-        KTagsListView(kTags: [kTag])
+              TimelineView(timeline: .constant(.kTag(kTag: kTag)),
+                           pinnedFilters: .constant([]),
+                           selectedTagGroup: .constant(nil),
+                           canFilterTimeline: false)
       }
     }
   }

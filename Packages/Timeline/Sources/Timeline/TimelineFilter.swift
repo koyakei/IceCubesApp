@@ -32,6 +32,7 @@ public enum RemoteTimelineFilter: String, CaseIterable, Hashable, Equatable, Sen
 public enum TimelineFilter: Hashable, Equatable, Identifiable, Sendable {
   case home, local, federated, trending
   case hashtag(tag: String, accountId: String?)
+  case kTag(kTag: KTag)
   case tagGroup(title: String, tags: [String], symbolName: String?)
   case list(list: Models.List)
   case remoteLocal(server: String, filter: RemoteTimelineFilter)
@@ -49,6 +50,8 @@ public enum TimelineFilter: Hashable, Equatable, Identifiable, Sendable {
       return title + tags.joined()
     case let .link(url, _):
       return url.absoluteString
+    case let .kTag(kTag):
+        return kTag.id
     default:
       return title
     }
@@ -94,6 +97,8 @@ public enum TimelineFilter: Hashable, Equatable, Identifiable, Sendable {
       title
     case let .hashtag(tag, _):
       "#\(tag)"
+    case let .kTag(kTag):
+            "$\(kTag.name)"
     case let .tagGroup(title, _, _):
       title
     case let .list(list):
@@ -121,6 +126,8 @@ public enum TimelineFilter: Hashable, Equatable, Identifiable, Sendable {
       LocalizedStringKey(title)
     case let .hashtag(tag, _):
       "#\(tag)"
+    case let .kTag(kTag):
+            "$\(kTag.name)"
     case let .tagGroup(title, _, _):
       LocalizedStringKey(title) // ?? not sure since this can't be localized.
     case let .list(list):
@@ -150,7 +157,7 @@ public enum TimelineFilter: Hashable, Equatable, Identifiable, Sendable {
       "dot.radiowaves.right"
     case let .tagGroup(_, _, symbolName):
       symbolName ?? "tag"
-    case .hashtag:
+    case .hashtag, .kTag:
       "number"
     case .link:
       "link"
@@ -188,6 +195,8 @@ public enum TimelineFilter: Hashable, Equatable, Identifiable, Sendable {
       } else {
         return Timelines.hashtag(tag: tag, additional: nil, maxId: maxId, minId: minId)
       }
+    case let .kTag(kTag):
+        return Timelines.ktag(kTag: kTag, maxId: maxId, minId: minId)
     case let .tagGroup(_, tags, _):
       var tags = tags
       if !tags.isEmpty {
@@ -207,6 +216,7 @@ extension TimelineFilter: Codable {
     case federated
     case trending
     case hashtag
+    case kTag
     case tagGroup
     case list
     case remoteLocal
@@ -310,6 +320,8 @@ extension TimelineFilter: Codable {
       var nestedContainer = container.nestedUnkeyedContainer(forKey: .link)
       try nestedContainer.encode(url)
       try nestedContainer.encode(title)
+    case .kTag:
+      try container.encode(CodingKeys.trending.rawValue, forKey: .kTag)
     }
   }
 }

@@ -1,10 +1,12 @@
 import Foundation
+import Models
 
 public enum Timelines: Endpoint {
   case pub(sinceId: String?, maxId: String?, minId: String?, local: Bool)
   case home(sinceId: String?, maxId: String?, minId: String?)
   case list(listId: String, sinceId: String?, maxId: String?, minId: String?)
   case hashtag(tag: String, additional: [String]?, maxId: String?, minId: String?)
+  case ktag(kTag: KTag, maxId: String?, minId: String?)
   case link(url: URL, sinceId: String?, maxId: String?, minId: String?)
 
   public func path() -> String {
@@ -17,6 +19,8 @@ public enum Timelines: Endpoint {
       "timelines/list/\(listId)"
     case let .hashtag(tag, _, _, _):
       "timelines/tag/\(tag)"
+    case let .ktag(kTag, _, _):
+        "timelines/k_tag/\(kTag.name)"
     case .link:
       "timelines/link"
     }
@@ -37,6 +41,8 @@ public enum Timelines: Endpoint {
       params.append(contentsOf: (additional ?? [])
         .map { URLQueryItem(name: "any[]", value: $0) })
       return params
+    case let .ktag(_, maxId, minId):
+      return  makePaginationParam(sinceId: nil, maxId: maxId, mindId: minId) ?? []
     case let .link(url, sinceId, maxId, minId):
       var params = makePaginationParam(sinceId: sinceId, maxId: maxId, mindId: minId) ?? []
       params.append(.init(name: "url", value: url.absoluteString))
