@@ -10,6 +10,7 @@ import RevenueCat
 import StatusKit
 import SwiftUI
 import Timeline
+import WishKit
 
 @main
 struct IceCubesApp: App {
@@ -87,6 +88,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     try? AVAudioSession.sharedInstance().setCategory(.ambient, options: .mixWithOthers)
     try? AVAudioSession.sharedInstance().setActive(true)
     PushNotificationsService.shared.setAccounts(accounts: AppAccountsManager.shared.pushAccounts)
+    Telemetry.setup()
+    Telemetry.signal("app.launched")
+    WishKit.configure(with: "AF21AE07-3BA9-4FE2-BFB1-59A3B3941730")
     return true
   }
 

@@ -9,7 +9,7 @@ import SwiftUI
 @Observable class TimelineViewModel {
   var scrollToIndex: Int?
   var statusesState: StatusesState = .loading
-  var timeline: TimelineFilter = .federated {
+  var timeline: TimelineFilter = .home {
     willSet {
       if timeline == .home, newValue != .resume {
         saveMarker()
@@ -21,6 +21,9 @@ import SwiftUI
         await handleLatestOrResume(oldValue)
 
         if oldValue != timeline {
+          Telemetry.signal("timeline.filter.updated",
+                           parameters: ["timeline": timeline.rawValue])
+          
           await reset()
           pendingStatusesObserver.pendingStatuses = []
           tag = nil
@@ -211,8 +214,10 @@ extension TimelineViewModel: StatusesFetcher {
         pendingStatusesObserver.isLoadingNewStatuses = !pullToRefresh
         try await fetchNewPagesFrom(latestStatus: latest.id, client: client)
       }
-    } catch {
-      statusesState = .error(error: error)
+    } catch let error {
+      if (error as NSError).code != -999 {
+        statusesState = .error(error: error)
+      }
       canStreamEvents = true
     }
   }

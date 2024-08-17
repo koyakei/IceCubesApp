@@ -264,8 +264,8 @@ public final class ReblogStatus: AnyStatus, Codable, Identifiable, Equatable, Ha
   public let filtered: [Filtered]?
   public let sensitive: Bool
   public let language: String?
-  public var kTagRelations: [AddedKTagRelation]
-  public var kTagAddRelationRequests: [KTagAddRelationRequestForUser]
+  public let kTagRelations: [AddedKTagRelation]
+  public let kTagAddRelationRequests: [KTagAddRelationRequestForUser]
   public var isHidden: Bool {
     filtered?.first?.filter.filterAction == .hide
   }

@@ -129,23 +129,6 @@ public final class Account: Codable, Identifiable, Hashable, Sendable, Equatable
 
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
-      for key in container.allKeys {
-                  if let stringValue = try? container.decode(String.self, forKey: key) {
-                      print("Key: \(key.stringValue), Value: \(stringValue)")
-                  } else if let intValue = try? container.decode(Int.self, forKey: key) {
-                      print("Key: \(key.stringValue), Value: \(intValue)")
-                  } else if let doubleValue = try? container.decode(Double.self, forKey: key) {
-                      print("Key: \(key.stringValue), Value: \(doubleValue)")
-                  } else if let boolValue = try? container.decode(Bool.self, forKey: key) {
-                      print("Key: \(key.stringValue), Value: \(boolValue)")
-                  } else if let createdAt = try? container.decode(ServerDate.self, forKey: key) {
-                      print("Key: \(key.stringValue), Value: \(createdAt)")
-                  } else if let createdAt = try? container.decode([Account.Field].self, forKey: .fields) {
-                      print("Key: \(key.stringValue), Value: \(createdAt)")
-                  } else {
-                      print("Key: \(key.stringValue), Value: Unknown type")
-                  }
-              }
     id = try container.decode(String.self, forKey: .id)
     username = try container.decode(String.self, forKey: .username)
     displayName = try container.decodeIfPresent(String.self, forKey: .displayName)
@@ -219,7 +202,9 @@ extension Account {
   }
   
   public var premiumAcct: String? {
-    if let field = fields.first(where: { $0.value.asRawText.hasSuffix(AppInfo.premiumInstance) }) {
+    if isPremiumAccount {
+      return "@\(acct)"
+    } else if let field = fields.first(where: { $0.value.asRawText.hasSuffix(AppInfo.premiumInstance) }) {
       return field.value.asRawText
     } else if let field = fields.first(where: { $0.value.asRawText.hasPrefix("https://\(AppInfo.premiumInstance)") }),
                 let url = URL(string: field.value.asRawText) {

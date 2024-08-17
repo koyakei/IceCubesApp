@@ -14,9 +14,9 @@ public enum KTagAddRelationRequests: Endpoint {
       "k_tag_add_relation_requests/\(id)/"
     case .create://post
       "k_tag_add_relation_requests"
-    case let .approve(id): //post
+    case let .approve(id,_): //post
       "k_tag_add_relation_requests/\(id)/approve"
-    case let .deny(id)://post
+    case let .deny(id,_)://post
       "k_tag_add_relation_requests/\(id)/deny"
     case let .delete(id):
         "k_tag_add_relation_requests/\(id)/"
